@@ -20,7 +20,7 @@ namespace LAB_3
     {
         static void Main(string[] args)
         {
-            string[] inputLines = File.ReadAllLines(args[0], Encoding.UTF8);
+            string[] inputLines = File.ReadAllLines(args[0], Encoding.Default);
             int patternsCount = Int32.Parse(inputLines[0]);
             List<string> patterns = new List<string>();
 
@@ -29,20 +29,13 @@ namespace LAB_3
                 patterns.Add(inputLines[i + 1]);
             }
 
-            string text = File.ReadAllText(inputLines[patternsCount + 1], Encoding.UTF8);
+            string text = File.ReadAllText(inputLines[patternsCount + 1], Encoding.Default);
             Stopwatch stopwatch = Stopwatch.StartNew();
             RK rk = new RK(patterns);
             rk.find(text);
             stopwatch.Stop();
             Console.WriteLine("TIME IS : " + stopwatch.ElapsedMilliseconds);
-
-            if (!File.Exists("./OUTPUT.txt"))
-            {
-                // Create a file to write to.
-                string createText = "Hello and Welcome" + Environment.NewLine;
-                File.WriteAllText("./OUTPUT.txt", createText);
-            }
-
+			
             rk.WriteResultToFile();
 
             Console.ReadKey();
